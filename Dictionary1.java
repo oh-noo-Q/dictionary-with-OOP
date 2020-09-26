@@ -1,15 +1,11 @@
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Dictionary1 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         DictionaryManagement management = new DictionaryManagement();
-        int n = sc.nextInt();
-        for (int i = 0; i < n; ++i) {
-            management.insertFromCommandline();
-        }
         DictionaryCommandLine commandLine = new DictionaryCommandLine();
-        commandLine.showAllWords();
+        commandLine.dictionaryAdvanced();
     }
 }
