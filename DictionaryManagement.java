@@ -96,6 +96,10 @@ public class DictionaryManagement {
         }
         //scFile.close();
     }
+
+    /**
+     *  in ket qua ra file .
+     */
     public void dictionaryExportToFile() {
         try {
             FileWriter myWriter = new FileWriter("output.txt");
