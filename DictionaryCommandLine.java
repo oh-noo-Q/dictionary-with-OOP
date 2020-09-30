@@ -1,6 +1,7 @@
 import com.sun.crypto.provider.DESCipher;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class DictionaryCommandLine {
     /**
@@ -22,8 +23,35 @@ public class DictionaryCommandLine {
      */
     public void dictionaryAdvanced() throws IOException {
         DictionaryManagement management = new DictionaryManagement();
-        management.insertFromFile();;
+        management.insertFromFile();
         showAllWords();
         management.dictionaryLookup();
+    }
+
+    /**
+     * in ta tat ca tu bat dau bang cac ky tu cho truoc .
+     * @throws IOException
+     */
+    public void dictionarySearch() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        sc.nextLine();
+        boolean checkFound = false;
+        for (int i = 0; i < DictionaryManagement.words.size(); ++i) {
+            if (DictionaryManagement.words.get(i).getWord_tager().length() < s.length()) continue;
+            boolean check = true;
+            for (int j = 0; j < s.length(); ++j) {
+                if (s.charAt(j) != DictionaryManagement.words.get(i).getWord_tager().charAt(j)) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                checkFound = true;
+                System.out.printf("%-12s%s%-12s\n", DictionaryManagement.words.get(i).getWord_tager(),
+                        "|", DictionaryManagement.words.get(i).getWord_explain());
+            }
+        }
+        if (!checkFound) System.out.println("Not found");
     }
 }
