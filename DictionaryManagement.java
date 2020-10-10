@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,15 +25,30 @@ public class DictionaryManagement {
      * lay du lieu tu dien tu file .
      * @throws IOException
      */
-    public void insertFromFile() throws IOException {
-        Scanner scFile = new Scanner(Paths.get("Dictionary.txt"),"UTF-8");
-        while (scFile.hasNextLine()) {
-            String newWord = scFile.next();
-            String meaning = scFile.nextLine().trim();
-            Word NW = new Word(newWord,meaning);
-            words.add(NW);
+    public static void insertFromFile() throws IOException {
+        String file_name = "dictionaries.txt";
+        ArrayList<String> allword = new ArrayList<>();
+        String allTextinFile = null;
+        File file = new File(file_name);
+        FileInputStream fis = new FileInputStream(file);
+        byte[] data = new byte[(int) file.length()];
+        fis.read(data);
+        fis.close();
+        allTextinFile = new String(data,"UTF-8");
+        String[] wordArray = allTextinFile.split("@");
+        for (String word : wordArray) {
+            if (word.equals("")) continue;
+            String[] Target_Pronun_Meaning = word.split("\n", 2);
+            String[] Target_Pronun = Target_Pronun_Meaning[0].split("/",2);
+            String word_target = Target_Pronun[0].trim();
+            String word_pronun = "";
+            if (Target_Pronun.length > 1) {
+                word_pronun = "/" + Target_Pronun[1];
+            }
+            String word_explain = Target_Pronun_Meaning[1];
+            Word new_word = new Word(word_target, word_explain, word_pronun);
+            words.add(new_word);
         }
-        scFile.close();
     }
 
     /**
@@ -45,10 +57,17 @@ public class DictionaryManagement {
     public void dictionaryLookup() {
         Scanner sc = new Scanner(System.in);
         String s = sc.next();
+        for (int i = 0; i < s.length(); ++i) {
+            char c = s.charAt(i);
+            if (c <= 'Z' && c >= 'A') {
+                c += 'a' - 'A';
+                s = s.replace(s.charAt(i),c);
+            }
+        }
         boolean checkFound = false;
         for (int i = 0; i < words.size(); ++i) {
             if (words.get(i).getWord_tager().equals(s)) {
-                System.out.println(s + ": " + words.get(i).getWord_explain());
+                System.out.println(s + " " + words.get(i).getWord_pronun() + "\n" + words.get(i).getWord_explain());
                 checkFound = true;
                 break;
             }
@@ -65,6 +84,13 @@ public class DictionaryManagement {
         //Scanner scFile = new Scanner(Paths.get("D:\\Minh\\BT\\OOP\\Dictionary.txt"), "UTF-8");
         Scanner sc = new Scanner(System.in);
         String s = sc.next();
+        for (int i = 0; i < s.length(); ++i) {
+            char c = s.charAt(i);
+            if (c <= 'Z' && c >= 'A') {
+                c += 'a' - 'A';
+                s = s.replace(s.charAt(i),c);
+            }
+        }
         boolean checkFound = false;
         for (int i = 0; i < words.size(); ++i) {
             if (words.get(i).getWord_tager().equals(s) || words.get(i).getWord_explain().equals(s)) {
@@ -78,12 +104,16 @@ public class DictionaryManagement {
                 else if (c.equals("t")) {
                     String edit = sc.nextLine();
                     words.get(i).setWord_tager(edit);
-                    System.out.println(words.get(i).getWord_tager() + ": " + words.get(i).getWord_explain());
+                    System.out.print(DictionaryManagement.words.get(i).getWord_tager() + " " +
+                            DictionaryManagement.words.get(i).getWord_pronun() + "\n" +
+                            DictionaryManagement.words.get(i).getWord_explain() + "\n**************\n");
                     break;
                 } else if (c.equals("m")) {
                     String edit = sc.nextLine();
                     words.get(i).setWord_explain(edit);
-                    System.out.println(words.get(i).getWord_tager() + ": " + words.get(i).getWord_explain());
+                    System.out.print(DictionaryManagement.words.get(i).getWord_tager() + " " +
+                            DictionaryManagement.words.get(i).getWord_pronun() + "\n" +
+                            DictionaryManagement.words.get(i).getWord_explain() + "\n**************\n");
                     break;
                 } else if (c.equals("d")) {
                     words.remove(i);
@@ -103,9 +133,8 @@ public class DictionaryManagement {
     public void dictionaryExportToFile() {
         try {
             FileWriter myWriter = new FileWriter("output.txt");
-            //myWriter.write("Files in Java might be tricky, but it is fun enough!");
              for (int i = 0; i < words.size(); ++i) {
-                 myWriter.write(words.get(i).getWord_tager() + ":   " + words.get(i).getWord_explain() +"\n");
+                 myWriter.write(words.get(i).getWord_tager() + " " + words.get(i).getWord_pronun() + "\n" + words.get(i).getWord_explain() +"\n");
              }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");

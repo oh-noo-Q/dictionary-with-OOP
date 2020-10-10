@@ -11,8 +11,9 @@ public class DictionaryCommandLine {
         System.out.printf("%-12s%-12s%s\n", "No", "|English", "|Vietnamese");
         int n = DictionaryManagement.words.size();
         for (int i = 0; i < n; ++i) {
-            System.out.printf("%-12d%-12s%s\n", i+1, "|" + DictionaryManagement.words.get(i).getWord_tager(),
-                   "|" + DictionaryManagement.words.get(i).getWord_explain());
+            System.out.print(DictionaryManagement.words.get(i).getWord_tager() + " " +
+                    DictionaryManagement.words.get(i).getWord_pronun() + "\n" +
+                    DictionaryManagement.words.get(i).getWord_explain() + "\n**************\n");
         }
     }
 
@@ -35,6 +36,13 @@ public class DictionaryCommandLine {
     public void dictionarySearch() throws IOException {
         Scanner sc = new Scanner(System.in);
         String s = sc.next();
+        for (int i = 0; i < s.length(); ++i) {
+            char c = s.charAt(i);
+            if (c <= 'Z' && c >= 'A') {
+                c += 'a' - 'A';
+                s = s.replace(s.charAt(i),c);
+            }
+        }
         sc.nextLine();
         boolean checkFound = false;
         for (int i = 0; i < DictionaryManagement.words.size(); ++i) {
@@ -48,8 +56,9 @@ public class DictionaryCommandLine {
             }
             if (check) {
                 checkFound = true;
-                System.out.printf("%-12s%s%-12s\n", DictionaryManagement.words.get(i).getWord_tager(),
-                        "|", DictionaryManagement.words.get(i).getWord_explain());
+                System.out.print(DictionaryManagement.words.get(i).getWord_tager() + " " +
+                        DictionaryManagement.words.get(i).getWord_pronun() + "\n" +
+                        DictionaryManagement.words.get(i).getWord_explain() + "\n**************\n");
             }
         }
         if (!checkFound) System.out.println("Not found");

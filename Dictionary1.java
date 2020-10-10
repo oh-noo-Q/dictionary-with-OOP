@@ -6,7 +6,7 @@ public class Dictionary1 {
         Scanner sc = new Scanner(System.in);
         DictionaryManagement management = new DictionaryManagement();
         DictionaryCommandLine commandLine = new DictionaryCommandLine();
-        management.insertFromCommandline();
+        //management.insertFromCommandline();
         commandLine.dictionaryAdvanced();
         //management.editDictionary();
         commandLine.dictionarySearch();
