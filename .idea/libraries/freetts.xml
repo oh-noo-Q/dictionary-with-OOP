@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="freetts">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/freetts.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cmu_us_kal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/en_us.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
