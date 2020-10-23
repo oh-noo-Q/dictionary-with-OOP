@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="290.0" prefWidth="550.0" style="-fx-background-color: #99FFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.homeController">
+   <children>
+      <TextArea fx:id="textArea1" layoutX="14.0" layoutY="50.0" prefHeight="200.0" prefWidth="264.0" />
+      <TextArea fx:id="textArea2" layoutX="278.0" layoutY="50.0" prefHeight="200.0" prefWidth="264.0" />
+      <Label alignment="CENTER" layoutX="75.0" layoutY="25.0" prefHeight="17.0" prefWidth="106.0" text="ENGLISH" />
+      <Label alignment="CENTER" layoutX="358.0" layoutY="25.0" prefHeight="17.0" prefWidth="87.0" text="VIETNAMESE" />
+      <Button layoutX="500.0" mnemonicParsing="false" onAction="#out" prefHeight="28.0" prefWidth="56.0" style="-fx-background-color: #FF6666;" text="Close" />
+      <Button fx:id="run" layoutX="252.0" layoutY="21.0" mnemonicParsing="false" onAction="#writer" text="run" />
+   </children>
+</AnchorPane>
